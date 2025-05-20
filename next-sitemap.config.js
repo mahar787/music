@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://rhythmicbytes.vercel.app", // 🔁 replace with your domain
+  siteUrl: "https://music-flame-two.vercel.app/", // 🔁 replace with your domain
   generateRobotsTxt: true, // (optional)
   changefreq: "daily",
   priority: 0.7,

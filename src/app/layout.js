@@ -30,7 +30,7 @@ export const metadata = {
     title: "Rhythmic Bytes",
     description:
       "Stream music effortlessly with Rhythmic Bytes - your go-to platform for quality sound and immersive experience.",
-    url: "https://rhythmicbytes.vercel.app",
+    url: "https://music-flame-two.vercel.app/",
     siteName: "Rhythmic Bytes",
     images: [
       {

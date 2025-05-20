@@ -1,6 +1,8 @@
 import DbCon from "@/app/Database/Db.js";
 import cloudinary from "@/app/Cloudinary/Cloudinary.js";
 import Music from "@/app/Models/Music.model.js";
+import { Readable } from "stream";
+import { pipeline } from "stream/promises";
 
 export async function POST(req) {
   try {
@@ -11,27 +13,30 @@ export async function POST(req) {
     const title = formData.get("title");
     const length = formData.get("length");
     const category = formData.get("category");
-    const file = formData.get("audio"); // audio file from form
+    const file = formData.get("audio");
 
     if (!file || !title || !length || !category) {
       return Response.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const readableStream = Readable.from(buffer);
 
     const uploadedAudio = await new Promise((resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          {
-            folder: "music-audios",
-            resource_type: "video", // for mp3/mp4/audio
-          },
-          (err, result) => {
-            if (err) reject(err);
-            else resolve(result);
-          }
-        )
-        .end(buffer);
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "music-audios",
+          resource_type: "video", // works for audio too
+        },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+
+      pipeline(readableStream, uploadStream).catch(reject);
     });
 
     const newMusic = await Music.create({
