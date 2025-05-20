@@ -126,9 +126,8 @@ export default function UploadMusicPage() {
               Audio File
             </label>
             <input
-              type="file"
-              accept="*"
-              onChange={(e) => setAudio(e.target.files[0])}
+              type="text"
+              onChange={(e) => setAudio(e.target.value)}
               className="w-full bg-zinc-100 dark:bg-zinc-800 text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
             />
           </div>
