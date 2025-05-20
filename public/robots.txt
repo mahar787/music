@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://rhythmicbytes.vercel.app
+
+# Sitemaps
+Sitemap: https://rhythmicbytes.vercel.app/sitemap.xml
